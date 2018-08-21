@@ -8,14 +8,10 @@ int fdx, fdy;
 
 void chatterCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
-  double xi = (msg->angular.z) * 152.55/* * 1.8*/;
-  double yi = (msg->linear.x)  * 300/* * 1.8*/; 
-/* 152.55 300 */
-  printf("new\n");
-/* 76 */
-
+  double xi = (msg->angular.z) * 152.55;
+  double yi = (msg->linear.x)  * 300; 
+  
   unsigned char x,y; 
-//  int fdx, fdy; 
  
   if(xi >= 500) xi = 499;
   if(xi <= (-500)) xi = -499;
@@ -23,13 +19,11 @@ void chatterCallback(const geometry_msgs::Twist::ConstPtr& msg)
   if(yi <=(-500)) yi = -499;
   printf("%d %d (xi,yi)\n");
 
-  /* Magic formula */
   x = 43+(xi+500.0)*184.0/1000.0;
   y = 43+(yi+500.0)*184.0/1000.0;
   
   ROS_INFO("xi: [%lf] yi: [%lf] Coord - x: [%x] y: [%x]", xi,yi, x,y);
 
-  //Nullwerte filtern 
   if( x == 0x00 || y == 0x00){
   	return;
   }
@@ -54,7 +48,7 @@ int main(int argc, char **argv)
 
     ros::spin();
   }
-//  close_it:
+  
   close(fdx);
   close(fdy);
   return 0;
