@@ -38,6 +38,10 @@ int fdx, fdy;
 
 void chatterCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
+  /* The formulas are mathematically equivalent to the formulas from the masters thesis.
+   * Please note that xi is equivalent to msg->angular.z * (500 / max_vel_x)
+   * and yi is equivalent to msg->linear.x * (500 / max_vel_y)
+   */
   double xi = (msg->angular.z) * 152.55;
   double yi = (msg->linear.x)  * 300; 
   
